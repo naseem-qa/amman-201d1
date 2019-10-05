@@ -13,7 +13,7 @@ As a result of completing Lecture 1 of Code 201, students will be able to:
 
 ## Kickoff!
 
-This is the welcome and introduction to Code Fellows. You will meet the campus manager and learn about campus operations and policies.
+This is the welcome and introduction to Code Fellows. You will meet the instructional team and learn about campus operations and policies.
 
 ## Academic Overview
 
