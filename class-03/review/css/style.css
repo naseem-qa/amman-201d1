@@ -1,0 +1,44 @@
+header {
+  background-color: lightblue;
+  padding: 15px;
+  text-align: center;
+  color: navy;
+  text-size-adjust: opera 42;
+}
+h1 {
+  padding: 50px;
+  text-align: center;
+}
+
+h2 {
+  padding: 20px;
+  text-align: left;
+  color: navy;
+  background-color: pink;
+
+}
+
+h3 {
+  padding: 20px;
+  text-align: left;
+  color: navy;
+  background-color: yellowgreen;
+
+}
+
+p {
+  padding: 35px;
+  text-align: left;
+}
+
+pre{
+  padding: 35px;
+  text-align: left;
+}
+
+footer {
+  color: wheat;
+  background-color: navy;
+  text-align: center;
+  padding: 20px;
+}
