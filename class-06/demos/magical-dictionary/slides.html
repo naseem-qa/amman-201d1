@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      p {
+        transition: opacity 2s linear;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# The Magic of JavaScript Objects
+
+---
+
+# Introduction
+
+An Object is like a Dictionary
+```
+var englishToFrenchDictionary = {
+  hello: "bonjour",
+  goodbye: "au revoir",
+  yes: "oui",
+  no:"non",
+  "good evening":"bonsoir"
+}
+```
+--
+the part to left of colon is called the 'key'
+
+--
+
+the part to right of colon is called the 'value'
+
+--
+
+They are often referred to together as 'key value pairs'
+
+--
+
+Notice the key for "good evening" is in quotes because it is multi word
+
+---
+
+we usually access the value in an object with a dot
+
+e.g. `someObject.someKey`
+
+`englishToFrenchDictionary.hello` has the value "bonjour"
+
+--
+
+au revoir
+
+bonsoir
+
+oui
+
+Is it night time? non
+
+oui
+
+---
+
+# An Object is like a Magical Dictionary
+
+So far our magical dictionary has not shown a lot of magical abilities
+
+--
+
+Dictiories are 'alive' - meaning you can add things to them
+
+fruitDictionary.banana : A nutritious yellow fruit. Peel just before eating
+
+--
+
+You can also delete from them
+
+{"banana":"A nutritious yellow fruit. Peel just before eating"}
+
+---
+
+Now we will get to the real MAGIC
+
+The values in an object can by ANYTHING!
+
+--
+
+Well almost anything. They can be any JavaScript expression
+
+--
+
+They can be : 
+  - strings
+  - booleans
+  - numbers
+  - arrays
+  - even other Objects and more!
+
+{"banana":{"name":"banana","description":"A nutritious yellow fruit. Peel just before eating"}}
+
+--
+
+How do you show the description for banana?
+
+A nutritious yellow fruit. Peel just before eating
+
+--
+
+Can a value be a function?
+
+Yes! Let's create new Object with functions inside
+
+Return value from calling eat function on apple object = Delicious!
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
