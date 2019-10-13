@@ -1,3 +1,49 @@
+var atabaHotel = {
+  location : '34 Rainbow Street',
+  name : 'Ataba Hotel',
+  rooms : [
+    {
+      number : 1,
+      beds : 2,
+    },
+    {
+      number: 2,
+      beds : 1
+    }
+  ],
+  getRoomCount: function() {
+    return this.rooms.length;
+  }
+}
+
+let seasonsHotel = {
+  location : '100 Abdoun Street',
+  name : 'Seasons Hotel',
+  rooms : [
+    {
+      number : 1,
+      beds : 2,
+    }
+  ],
+  getRoomCount: function() {
+    return this.rooms.length;
+  }
+}
+
+var newRoom = { number : 3, beds : 1};
+atabaHotel.rooms.push(newRoom);
+
+atabaHotel.allowPets = true;
+
+atabaHotel.allowPets = false;
+
+atabaHotel.location += ' Amman';
+
+console.log('atabaHotel.getRoomCount : ', atabaHotel.getRoomCount());
+
+console.log('seasonsHotel.getRoomCount() : ', seasonsHotel.getRoomCount());
+
+
 var englishToFrench = {
   'hello':'bonjour',
   'goodbye' : 'au revoir',
@@ -5,6 +51,14 @@ var englishToFrench = {
   'no' : 'non',
   'good evening' : 'bonsoir'
 }
+
+
+
+var englishToArabic = {};
+
+englishToArabic.hello = 'marhabban';
+
+console.log('englishToArabic.hello : ', englishToArabic.hello);
 
 show(englishToFrench);
 
@@ -47,8 +101,3 @@ function translate(english) {
 }
 
 show(translate('yes'));
-
-
-
-
-
