@@ -1,162 +1,149 @@
-'use strict'; // thanks Tazneem
+'use strict';
 
-// You can define hours array like this...
-// var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
+var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
 
-// or this...
+function CookieShop(location, min, max, avgSale) {
+  this.location = location;
+  this.min = min;
+  this.max = max;
+  this.avgSale = avgSale;
+  this.hourlySales = [];
+  this.dailySales = 0;
+  this.generateHourlySales();
+}
 
+CookieShop.prototype.getRandomCustomerCount = function () {
 
-/* 
-  Covert 24 hour clock hour to 12 hour clock 
-  Just handles the whole hour, make it fancier to handle minutes too if you like
-*/
-function twentyFourToTwelve(hour24) {
+  var range = this.max - this.min;
 
-  if (hour24 == 24) {
-    return '12am';
-  } else if (hour24 == 12) {
-    return '12pm';
-  } else if (hour24 < 12) {
-    return hour24 + 'am';
-  } else {
-    return (hour24 - 12) + 'pm';
+  var randomCount = Math.random() * range + this.min;
+
+  return Math.ceil(randomCount);
+}
+
+CookieShop.prototype.generateHourlySales = function () {
+
+  for (var i = 0; i < hours.length; i++) {
+
+    var cookiesSoldThisHour = Math.ceil(this.getRandomCustomerCount() * this.avgSale);
+
+    this.hourlySales.push(cookiesSoldThisHour);
+
+    this.dailySales += cookiesSoldThisHour;
   }
 }
 
-var hours = [];
+CookieShop.prototype.render = function (table) {
 
-for (var i = 6; i <= 19; i++) {
-  hours.push(twentyFourToTwelve(i));
+  var tr = document.createElement('tr');
+  table.appendChild(tr);
+  
+  var td = document.createElement('td');
+  tr.appendChild(td);
+  td.textContent = this.location;
+
+  for (var i = 0; i < hours.length; i++) {
+
+    td = document.createElement('td');
+
+    tr.appendChild(td);
+
+    td.textContent = this.hourlySales[i];
+  }
+
+  td = document.createElement('td');
+  tr.appendChild(td);
+  td.textContent = this.dailySales;
 }
 
+// stand-alone function for header row
+function renderHeaderRow(table) {
 
+  var tr = document.createElement('tr');
+  
+  table.appendChild(tr);
 
-// create shop objects
-var seattle = {
-  location: 'Seattle',
-  min: 23,
-  max: 65,
-  avgSale: 6.3,
-  hourlySales: [],
-  dailySales: 0,
+  var th = document.createElement('th');
 
-  getRandomCustomerCount: function () {
+  tr.appendChild(th); // no text content for first one
 
-    var range = this.max - this.min;
+  for(var i = 0; i < hours.length; i++) {
 
-    var randomCount = Math.random() * range + this.min;
+    th = document.createElement('th');
+    tr.appendChild(th);
+    th.textContent = hours[i];
+  }
 
-    return Math.ceil(randomCount);
-  },
+  th = document.createElement('th');
+  tr.appendChild(th);
+  th.textContent = 'Daily Location Total';
 
-  generateHourlySales: function () {
-
-    for (var i = 0; i < hours.length; i++) {
-
-      var cookiesSoldThisHour = Math.ceil(this.getRandomCustomerCount() * this.avgSale);
-
-      this.hourlySales.push(cookiesSoldThisHour);
-
-      this.dailySales += cookiesSoldThisHour;
-    }
-  },
-
-  render: function() {
-
-    var container = document.getElementById('content-area');
-
-    var h2 = document.createElement('h2');
-    container.appendChild(h2);
-    h2.textContent = this.location;
-
-    var ul = document.createElement('ul');
-    container.appendChild(ul);
-
-
-    for(var i = 0; i < hours.length; i++) {
-
-      var li = document.createElement('li');
-      ul.appendChild(li);
-
-      var salesInfo = hours[i] + ': ' + this.hourlySales[i] + ' cookies';
-
-      li.textContent = salesInfo;
-
-    }
-
-    var li = document.createElement('li');
-    li.textContent = 'Total: ' + this.dailySales + ' cookies';
-    ul.appendChild(li);
-
-  },
 }
 
-var dubai = {
-  location: 'Dubai',
-  min: 11,
-  max: 38,
-  avgSale: 3.7,
-  hourlySales: [],
-  dailySales: 0,
+// stand-alone function for footer row
+function renderFooterRow(table) {
 
-  getRandomCustomerCount: function () {
+  var tr = document.createElement('tr');
+  
+  table.appendChild(tr);
 
-    var range = this.max - this.min;
+  var td = document.createElement('td');
+  
+  tr.appendChild(td);
+  
+  td.textContent = 'Totals';
 
-    var randomCount = Math.random() * range + this.min;
+  var megaTotal = 0;
 
-    return Math.ceil(randomCount);
-  },
+  for (var hourIndex = 0; hourIndex < hours.length; hourIndex++) {
+    
+    td = document.createElement('td');
+    
+    tr.appendChild(td);
 
-  generateHourlySales: function () {
+    var sum = 0;
 
-    for (var i = 0; i < hours.length; i++) {
+    for (var shopIndex = 0; shopIndex < shops.length; shopIndex++) {
 
-      var cookiesSoldThisHour = Math.ceil(this.getRandomCustomerCount() * this.avgSale);
-
-      this.hourlySales.push(cookiesSoldThisHour);
-
-      this.dailySales += cookiesSoldThisHour;
+      var shop = shops[shopIndex];
+      
+      sum += shop.hourlySales[hourIndex];
     }
-  },
+    
+    td.textContent = sum;
 
-  render: function() {
+    megaTotal += sum;
+  }
 
-    var container = document.getElementById('content-area');
-
-    var h2 = document.createElement('h2');
-    container.appendChild(h2);
-    h2.textContent = this.location;
-
-    var ul = document.createElement('ul');
-    container.appendChild(ul);
-
-
-    for(var i = 0; i < hours.length; i++) {
-
-      var li = document.createElement('li');
-      ul.appendChild(li);
-
-      var salesInfo = hours[i] + ': ' + this.hourlySales[i] + ' cookies';
-
-      li.textContent = salesInfo;
-
-    }
-
-    var li = document.createElement('li');
-    li.textContent = 'Total: ' + this.dailySales + ' cookies';
-    ul.appendChild(li);
-
-  },
+  td = document.createElement('td');
+  
+  tr.appendChild(td);
+  
+  td.textContent = megaTotal;
 }
+
+var seattle = new CookieShop('Seattle',23, 65, 6.5);
+var dubai = new CookieShop('Dubai',11, 38, 3.7);
 
 var shops = [seattle, dubai]; // add more shops when ready
 
+
+var container = document.getElementById('content-area');
+
+var table = document.createElement('table');
+
+container.appendChild(table);
+
+renderHeaderRow(table);
+
 for (var i = 0; i < shops.length; i++) {
+  
   var shop = shops[i];
-  shop.generateHourlySales();
-  shop.render();
+
+  shop.render(table);
 }
+
+renderFooterRow(table);
 
 
 
