@@ -2,56 +2,47 @@
 
 // Each kitten's profile should have:
 // - name
+// - breed
 // - random age assigned
 // - a list of what they like
 // - an image
 // good with kids
 // good with dogs
 // good with other cats
-// breed
 
-function Pet() {}
 
-Pet.prototype.describe = function() {
-  return `${this.name} is adorable and is ${this.age} months old`; // alternate style of string creation
-}
-
-function Kitten(name, likes, goodWithKids, goodWithDogs, goodWithOtherCats, breed) {
-  this.name = name;
+function Kitten(theKittenName, theKittenBreed, likes, image, goodWithKids, goodWithDogs, goodWithCats) {
+  this.name = theKittenName;
+  this.breed = theKittenBreed;
   this.likes = likes;
-  this.goodWithKids = goodWithKids;
+  this.image = image;
+  this.goodWithCats = goodWithCats;
   this.goodWithDogs = goodWithDogs;
-  this.goodWithOtherCats = goodWithOtherCats;
-  this.breed = breed;
+  this.goodWithKids = goodWithKids;
   this.age = 0;
-  this.generateAge(1,12);
+  this.assignRandomAge();
 }
 
-Kitten.prototype = new Pet();
-
-
-
-
-Kitten.prototype.generateAge = function(min, max) {
-  this.age = Math.ceil(Math.random() * (max - min) + min);
+Kitten.prototype.assignRandomAge = function() {
+  var randomAge = Math.ceil(Math.random() * 12);
+  this.age = randomAge;
 }
 
 Kitten.prototype.render = function() {
-  
-  var container = document.getElementById('kittenProfiles');
-  
+
+  var container = document.getElementById('kittenProfiles')
   var article = document.createElement('article');
   container.appendChild(article);
-  
-  var nameHeader = document.createElement('h2');
-  article.appendChild(nameHeader);
-  nameHeader.textContent = this.name;
-  
-  var description = document.createElement('p');
-  article.appendChild(description);
-  description.textContent = this.describe();
 
-  // likes
+  var h2 = document.createElement('h2');
+  article.appendChild(h2);
+  h2.textContent = this.name;
+
+  var p = document.createElement('p');
+  article.appendChild(p);
+  p.textContent = `${this.name} is adorable and is ${this.age} months old`;
+
+  // do the list
   var likesList = document.createElement('ul');
   article.appendChild(likesList);
 
@@ -61,52 +52,72 @@ Kitten.prototype.render = function() {
     likesList.appendChild(listItem);
     listItem.textContent = like;
   }
+  
 
-  // preferences
-  var preferencesTable = document.createElement('table');
-  article.appendChild(preferencesTable);
+  // do the table
+  var table = document.createElement('table');
+  article.appendChild(table);
 
+  // header row
   var headerRow = document.createElement('tr');
-  preferencesTable.appendChild(headerRow);
+  table.appendChild(headerRow);
 
-  var preferences = ['Kids','Dogs','Other cats'];
+  var kidsHeader = document.createElement('th');
+  headerRow.appendChild(kidsHeader);
+  kidsHeader.textContent = 'Good with kids';
 
-  for(var i = 0; i < preferences.length; i++) {
-    var th = document.createElement('th');
-    headerRow.appendChild(th);
-    th.textContent = preferences[i];
-  }
+  var dogsHeader = document.createElement('th');
+  headerRow.appendChild(dogsHeader);
+  dogsHeader.textContent = 'Good with dogs';
+
+  var catsHeader = document.createElement('th');
+  headerRow.appendChild(catsHeader);
+  catsHeader.textContent = 'Good with other cats';
+
 
   var dataRow = document.createElement('tr');
-  preferencesTable.appendChild(dataRow);
-  
-  var tdKids = document.createElement('td');
-  dataRow.appendChild(tdKids);
-  tdKids.textContent = this.goodWithKids;
+  table.appendChild(dataRow);
 
-  var tdDogs = document.createElement('td');
-  dataRow.appendChild(tdDogs);
-  tdDogs.textContent = this.goodWithDogs;
+  var kidsData = document.createElement('td');
+  dataRow.appendChild(kidsData);
+  kidsData.textContent = this.goodWithKids;
 
-  var tdCats = document.createElement('td');
-  dataRow.appendChild(tdCats);
-  tdCats.textContent = this.goodWithOtherCats;
+  var dogsData = document.createElement('td');
+  dataRow.appendChild(dogsData);
+  dogsData.textContent = this.goodWithDogs;
 
-  // image
+  var catsData = document.createElement('td');
+  dataRow.appendChild(catsData);
+  catsData.textContent = this.goodWithCats;
+
+  // do the image
   var img = document.createElement('img');
   article.appendChild(img);
-  img.setAttribute('src', 'images/' + this.name.toLowerCase() + '.jpeg');
-
+  img.setAttribute('src', this.image);
 }
 
-var frankie = new Kitten('Frankie', ['napping','chasing birds'], true, false, false, 'himalayan');
+var frankie = new Kitten('Frankie','himalayan',['fish','birds'], 'images/frankie.jpeg', true, false, false);
 
-frankie.render();
+var serena = new Kitten('Serena','persian',['napping','staring'], 'images/serena.jpeg', true, false, true);
 
-var jumper = new Kitten('Jumper', ['lounging','hissing'], true, true, false, 'siamese');
+// store all kittens, notice last kitten was not first stored in a variable
+var kittens = [serena, frankie, new Kitten('Jumper','siamese',['jumping','hopping'], 'images/jumper.jpeg', true, true, true)];
 
-jumper.render();
+for(var i = 0; i < kittens.length; i++) {
+  kittens[i].render();
+}
 
-var serena = new Kitten('Serena', ['purring','rubbing legs'], true, true, true, 'tabby');
 
-serena.render();
+/*
+
+// Advanced topic - Inheritance
+
+function Pet() {}
+
+Pet.prototype.describe = function() {
+  return `${this.name} is adorable and is ${this.age} months old`; // alternate style of string creation
+}
+
+Kitten.prototype = new Pet();
+*/
+
