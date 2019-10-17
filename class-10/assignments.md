@@ -3,7 +3,7 @@
 ## Labs
 - Lab 9a: Wireframe Exercise
   - 30 minutes to make your web page match the provided mock up images
-  - Assets are in course repo for class-09
+  - Assets (and demo version) are in course repo for class-09
 - Lab 10a: Chocolate Pizza
   - 2 hours to make your web page match the provided mock up images
   - Assets are in course repo for class-10
