@@ -1,7 +1,5 @@
 'use strict';
 
-var storageKey = 'cart';
-
 // Cart constructor.
 var Cart = function(items) {
   // this.items is an array of CartItem instances.
@@ -10,19 +8,15 @@ var Cart = function(items) {
 
 Cart.prototype.addItem = function(product, quantity) {
   // TODO: Fill in this instance method to create a new CartItem and add it to this.items
-  var cartItem = new CartItem(product,quantity);
-  this.items.push(cartItem);
 };
 
 Cart.prototype.saveToLocalStorage = function() {
   // TODO: Fill in this instance method to save the contents of the cart to localStorage
-  localStorage.setItem(storageKey, JSON.stringify(this.items));
 };
 
 Cart.prototype.removeItem = function(item) {
   // TODO: Fill in this instance method to remove one item from the cart.
   // Note: You will have to decide what kind of parameter to pass in here!
-  this.items.splice(item, 1);
 };
 
 var CartItem = function(product, quantity) {
